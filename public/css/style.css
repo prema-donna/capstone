@@ -1,0 +1,63 @@
+/*!
+ * Start Bootstrap - The Big Picture (https://startbootstrap.com/template-overviews/the-big-picture)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-the-big-picture/blob/master/LICENSE)
+ */
+
+body {
+  background: url('') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+/* background image taken from http://s1.1zoom.me/b7365/989/Closeup_Microscope_512181_1920x1080.jpg */
+
+.index {
+  background: url('http://s1.1zoom.me/b7365/989/Closeup_Microscope_512181_1920x1080.jpg') no-repeat center center fixed;
+}
+
+.session {
+  /* background-color: #ffffcc; */
+  background-color: lightgrey;
+}
+
+#grid {
+  position: relative;
+  width: 200;
+  height: 200;
+}
+
+#dpad {
+  position:relative;
+  width:200;
+  height:200;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    margin-right: 0;
+}
+
+.voteHeading {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.spacer20 {
+  height: 20px;
+}
+
+#radio {
+  background-color: lightgrey;
+  padding: 2px;
+}
+
+.radio {
+  padding-left: 10px;
+}
+
+.centered {
+  margin:auto;
+}

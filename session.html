@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- <link rel="stylesheet" type="text/css" href="http://localhost:3000/css/style.css"> -->
+    <title>SmartScope</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+  </head>
+
+  <body class="session" background-color:"#ffffcc">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">SmartScope</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#legendModal" data-toggle="modal" data-target="#legendModal">Help</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9">
+            <div row>
+               <div class="embed-responsive embed-responsive-16by9" id="cameraView">
+				<object width="640" height="480"> <param name="movie" value="http://10.13.148.35:3000/StrobeMediaPlayback.swf"></param><param name="flashvars" value="src=rtmp%3A%2F%2F10.13.148.35%2Flive%2Fstream&autoPlay=true&verbose=true&optimizeBuffering=false&initialBufferTime=2"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><param name="wmode" value="direct"></param><embed src="http://10.13.148.35:3000/StrobeMediaPlayback.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="direct" width="640" height="480" flashvars="src=rtmp%3A%2F%2F10.13.148.35%2Flive%2Fstream&autoPlay=true&verbose=true&optimizeBuffering=false&initialBufferTime=2"></embed></object>
+			  </div>
+            </div>
+            <div class="row spacer20"></div>
+            <div class="row justify-content-end" id="adminDiv"
+            style="display:none;">
+              <button type="button" class="btn btn-default btn-md admin" id="adminMode">
+                AdminMode
+              </button>
+              <button type="button" class="btn btn-default btn-md admin" id="voteForUser">
+                VoteForUser
+              </button>
+              <button type="button" class="btn btn-default btn-md admin" id="voteForMovement">
+                VoteForMovement
+              </button>
+              <button type="button" class="btn btn-default btn-md admin" id="volunteerForUser">
+                VolunteerForUser
+              </button>
+              <button type="button" class="btn btn-success btn-md admin" id="latencyTimer">
+                <span class="glyphicon glyphicon-time" id="latency"></span>
+              </button>
+            </div>
+            <div class="spacer20"></div>
+            <div class="row arrows"> <!--Directional Arrow Buttons-->
+              <div class="col-md offset-md-6" id="arrowButtons">
+                  <div class="row"> <!--Row 1 for buttons-->
+                    <div class="centered">
+                      <button type="button" class="btn btn-default btn-lg" id="Up">
+                        <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="row"> <!--Row 2 for buttons-->
+                    <div class="centered">
+                      <button type="button" class="btn btn-default btn-lg" id="Left">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                      </button>
+                      <button type="button" class="btn btn-default btn-lg" id="Down">
+                        <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                      </button>
+                      <button type="button" class="btn btn-default btn-lg" id="Right">
+                        <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                      </button>
+                    </div>
+                  </div>
+              </div> <!--End of Row-->
+
+              <div class="col-md-1" id="zoomButtons"> <!--Zoom Buttons-->
+                <div class="row">
+                  <button type="button" class="btn btn-default btn-lg" id="ZoomIn">
+                    <span class="glyphicon glyphicon glyphicon-zoom-in"></span>
+                  </button>
+                </div>
+                <div class="row">
+                  <button type="button" class="btn btn-default btn-lg" id="ZoomOut" >
+                    <span class="glyphicon glyphicon glyphicon-zoom-out"></span>
+                  </button>
+                </div>
+              </div>
+              <button type="button" class="btn btn-default btn-lg" id="None">
+                <span class="glyphicon glyphicon-pause"></span>
+              </button>
+              <div class="col-md-1 align-self-end" id="volunteerDiv" style="display:none;">
+                <div class row>
+                  <button type="button" class="btn btn-default btn-lg" id="No" >
+                    <span class="glyphicon glyphicon glyphicon-remove"></span>
+                  </button>
+                </div>
+                <div class row>
+                  <button type="button" class="btn btn-default btn-lg" id="Yes" >
+                    <span class="glyphicon glyphicon glyphicon-ok"><span>
+                  </button>
+                </div>
+              </div>
+            </div> <!--End of Row-->
+
+            <div class="spacer20"></div>
+
+            <div class="row justify-content-end">
+              <p>You are:</p><p id="Username" style="font-weight: bold; font:16px; padding-right: 10px;"></p>
+              <p>UserInControl:</p><p id="UserInControl" style="font-weight: bold; font:16px; padding-right: 10px;"></p>
+              <p>Administrator:</p><p id="Administrator" style="font-weight: bold; font:16px; padding-right: 10px;"></p>
+              <p>CurrentMode:</p><p id="CurrentMode" style="font-weight: bold; font:16px;"></p>
+            </div>
+            <div class ="row justify-content-end">
+              <div class="col-md-2">
+                <p class="voteHeading">Vote</p>
+                <div class="btn-group-vertical" id="userButtons"></div>
+              </div>
+              <div class="col-md-8" id="msgDiv" style="height:180px; width: 1024px; border:3px solid #ccc; font:16px/26px; overflow:auto; background-color: white;" >
+                <ul id="messages" style="list-style-type:none; padding-left:0;"></ul>
+              </div>
+            </div>
+            <div class="row justify-content-end">
+              <form action="" style="padding-left: 10px;">
+	               <input id="m" autocomplete="off"/><button id="sendButton">Send</button>
+	            </form>
+            </div>
+          </div>
+
+          <!-- <div class="col-md-3 embed-responsive embed-responsive-16by9" id="chatbox">
+            <iframe class="embed-responsive-item" src="https://smart-scope.herokuapp.com"></iframe>
+          </div> -->
+        </div> <!--End of Row-->
+      </div> <!--End of container-->
+    </section>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+      var startTime;
+      var endTime;
+      var totalTime = 0;
+
+      // function to be called whenever the chat log is appended to
+      function updateScroll(){
+        $("#msgDiv").scrollTop($('#messages').height());
+      }
+
+      function sendTicks() {
+        count = 5;
+        let tickTimer = setInterval(function(){
+          $('#messages').append($('<li>').text(count + "..."));
+          $('#messages li:last-child').css("font-weight", "bold");
+          updateScroll();
+          count--;
+          if(count == -1){
+            clearInterval(tickTimer);
+
+            updateScroll();
+          }
+        }, 1000);
+      }
+
+      $(function() {
+        var socket = io({transports: ['websocket'], upgrade: false});
+
+        $('form').submit(function(){
+          if ($('#m').val() != ''){
+            socket.emit('chat message', $('#m').val());
+            $('#messages').append($('<li>').text('[' + document.getElementById('Username').innerHTML + ']' + ": " + $('#m').val()));
+            $('#messages li:last-child').css("font-weight", "bold");
+            $('#m').val('');
+            updateScroll();
+          }
+          return false;
+        });
+
+        $("button").on('click', function(){
+          if (this.id == 'latencyTimer'){
+            if($('#latency').attr('class') == "glyphicon glyphicon-time"){
+              $('#messages').append($('<li>').text("SENDING MOVEMENT. CLICK STOP WHEN YOU DETECT MOVEMENT."));
+              $('#messages li:last-child').css("font-weight", "bold");
+              updateScroll();
+              socket.emit('testMovement');
+              $('#latency').removeClass("glyphicon glyphicon-time").addClass("glyphicon glyphicon-stop");
+              $('#latencyTimer').removeClass("btn-success").addClass("btn-danger");
+              startTime = Date.now();
+            }
+
+            else if ($('#latency').attr('class') == "glyphicon glyphicon-stop"){
+              $('#messages').append($('<li>').text("Timer stopped."));
+              $('#messages li:last-child').css("font-weight", "bold");
+              $('#latency').removeClass("glyphicon glyphicon-stop").addClass("glyphicon glyphicon-time");
+              $('#latencyTimer').removeClass("btn-danger").addClass("btn-success");
+              updateScroll();
+              endTime = Date.now();
+              totalTime = endTime - startTime;
+              socket.emit('Dummy');
+              socket.emit('latencyTestResult', totalTime);
+            }
+
+          }
+
+          else if (this.id != 'sendButton'){
+            socket.emit('buttonClick', this.id);
+            $('#messages').append($('<li>').text("You clicked: " + this.id));
+            $('#messages li:last-child').css("font-weight", "bold");
+            updateScroll();
+            socket.emit('Dummy');
+          }
+        });
+
+        $(".btn-group-vertical").on('click', 'button', function(){
+          socket.emit('buttonClick', this.id);
+          $('#messages').append($('<li>').text("You clicked: " + this.id));
+          $('#messages li:last-child').css("font-weight", "bold");
+          updateScroll();
+        });
+
+        socket.on('DummyACK', function(){
+          let a = 1;
+        });
+
+        socket.on('chat message', function(msg){
+          $('#messages').append($('<li>').text(msg));
+          updateScroll();
+        });
+
+        socket.on('users update', function(msg){
+          // document.getElementById('users').innerHTML = msg;
+          userList = msg;
+          $("#userButtons").empty();
+          for (i=0; i<userList.length; i++){
+            let myButton = $('<button type="button" class="btn btn-primary" id="'+ userList[i]+ '">' + userList[i] + '</button>');
+            $("#userButtons").append(myButton);
+          }
+        });
+
+        socket.on('mode update', function(msg){
+          document.getElementById('CurrentMode').innerHTML = msg;
+        });
+
+        socket.on('name update', function(msg){
+          document.getElementById('Username').innerHTML = msg;
+        });
+
+        socket.on('userInControl update', function(msg){
+          document.getElementById('UserInControl').innerHTML = msg;
+        });
+
+        socket.on('admin update', function(msg){
+          document.getElementById('Administrator').innerHTML = msg;
+        });
+
+        socket.on('admin enable', function(){
+          $("#adminDiv").css("display", "block");
+        });
+
+        socket.on('admin disable', function(){
+          $("#adminDiv").css("display", "none");
+        });
+
+        socket.on('volunteer mode', function(){
+          $("#volunteerDiv").css("display", "block");
+        });
+
+        socket.on('volunteer mode off', function(){
+          $("#volunteerDiv").css("display", "none");
+        });
+
+      });
+
+    </script>
+
+    <!-- Small modal -->
+    <div class="modal fade" id="legendModal" tabindex="-1" role="dialog" aria-labelledby="legendModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" style="padding-top: 275px;">
+        <div class="modal-content">
+          <div class="modal-body">
+            <ul style="list-style-type: none; margin-right: 0 auto; margin-left: 0 auto;">
+              <li>
+                <button type="button" class="btn btn-default btn-lg disabled">
+                  <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="btn btn-default btn-lg disabled">
+                  <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="btn btn-default btn-lg disabled">
+                  <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="btn btn-default btn-lg disabled">
+                  <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                </button>
+              </li>
+              <p>Any of the above buttons corrresponds to a directional command.</p>
+              <li>
+                <button type="button" class="btn btn-default btn-lg disabled">
+                  <span class="glyphicon glyphicon-zoom-in"></span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="btn btn-default btn-lg disabled">
+                  <span class="glyphicon glyphicon-zoom-out"></span>
+                </button>
+              </li>
+              <p>Any of the above buttons corresponds to a zoom command.</p>
+              <li>
+                <button type="button" class="btn btn-default btn-lg disabled">
+                  <span class="glyphicon glyphicon-pause"></span>
+                </button>
+              </li>
+              <p>The above command corresponds to a pause. As in, the slide should not move.</p>
+              <li>
+                <button type="button" class="btn btn-default btn-lg disabled">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="btn btn-default btn-lg disabled">
+                  <span class="glyphicon glyphicon-ok"></span>
+                </button>
+              </li>
+              <p>Any of the above buttons responds to volunteer commands. If a user presses "Yes", they will be considered for control.</p>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
